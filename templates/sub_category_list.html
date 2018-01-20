@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+{% block title %}
+Category New
+{% endblock %}
+{% block head %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="user-content">
+                {% if login_session['username'] != null %}
+                <span class="image"><img src="{{login_session['picture']}}"
+                                         class="img-circle"></span><span
+                    class="name">{{login_session['username']}}</span>
+                <a href="{{url_for('gdisconnect')}}"><span class="session">logout</span></a>
+                {% else %}
+                <a href="{{url_for('showLogin')}}"><span
+                        class="session">login</span></a>
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="main-image">
+                <img src="https://www.itchotels.in/content/dam/projects/hotelswebsite/itc-hotels/luxury-collection/destination/chennai/itc-grand-chola/Website/headmast/19%20Madras%20Pavilion_new.jpg.transform/transform-width-1280/image.jpeg">
+            </div>
+            <div class="overlay">
+                <h1>{{category.name}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12"><a
+                href="{{url_for('newSubCategory', cat_id = category.id)}}">Add
+            New</a></div>
+        {% for list in subCategory_list %}
+        <div class="col-md-4 col-sm-6">
+            <div class="card">
+                <div class="card-header">{{ list.name}}</div>
+                <div class="card-content">
+                    <ul class="card-content-list">
+                        <li><p>{{list.price}}</p></li>
+                        <li><p>{{list.course}}</p></li>
+                        <li><p>{{list.description}}</p></li>
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    {% if 'username' in login_session %}
+                    {% if login_session['user_id'] == list.user_id %}
+                    <a class="edit"
+                       href="{{url_for('editSubCategory', cat_id=category.id, sub_id=list.id )}}">Edit</a>
+                    <a class="delete"
+                       href="{{url_for('deleteSubCategory', cat_id=category.id, sub_id=list.id )}}">Delete</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
