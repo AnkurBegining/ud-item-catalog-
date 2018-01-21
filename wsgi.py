@@ -6,5 +6,5 @@ from item_catalog import app
 
 app.secret_key = 'New secret key. Change it on server'
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    'postgresql://'
+    'postgresql:///'
     'catalog:password@localhost/catalog')
